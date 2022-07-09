@@ -44,7 +44,7 @@ RawMaterialButton numButton(String input) {
       onPressed: () {},
       elevation: 2.0,
       fillColor: Colors.grey[400],
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(4.0),
       shape: const CircleBorder(),
       child: Text(
         input,
