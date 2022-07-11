@@ -4,6 +4,8 @@ import 'inputPage.dart';
 import 'package:simple_calculator/resultPage.dart';
 import 'menuWidget.dart';
 import 'my-globals.dart' as globals;
+import 'package:toast/toast.dart';
+
 
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class _CalculatorPage extends State<CalculatorPage> {
             flex: 7,
             child: Keyboard(
               buttonPressed: () => setState(() {
+
               }),
             ),
           ),

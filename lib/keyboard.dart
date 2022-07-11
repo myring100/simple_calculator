@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_calculator/constants.dart';
 import 'my-globals.dart' as globals;
+import 'package:toast/toast.dart';
 
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
@@ -9,6 +10,8 @@ class Keyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -83,16 +86,18 @@ class Keyboard extends StatelessWidget {
     return RawMaterialButton(
         onPressed: () {
           switch (input) {
-            case 'C' :
+            case 'C':
               clear();
               break;
-            case '( )' :
+            case '( )':
               brasketTest();
               break;
-            case '.' :
+            case '.':
               dotTest();
               break;
-            default :
+            case '+/-' :
+              //todo here write some function for +/-
+            default:
               globals.input = globals.input + input;
           }
           // if(input == 'C') clear();
@@ -113,37 +118,53 @@ class Keyboard extends StatelessWidget {
 
   void clear() {
     globals.input = '';
+    globals.result = 0.0;
   }
 
   void brasketTest() {
 
+
   }
 
   void dotTest() {
+    globals.input = '${globals.input}.';
+
 
   }
 
   void operatorCheck(String str) {
-    switch (str) {
-      case '%' :
-        {}
-        break;
-      case '/' :
-        {}
-        break;
-      case '*' :
-        {}
-        break;
-      case '+' :
-        {}
-        break;
-      case '-' :
-        {}
-        break;
-      case '=' :
-        {}
-        break;
+    String lastChar = globals.input[globals.input.length - 1];
+    //:todo later us`er type = => push input & result to history and clear input to 0.0
+    //:todo  result still contains same result.
+    // lastChar == '.' ? globals.input= '${globals.input}0' :globals.input = globals.input;
+
+    if(lastChar == '.'){
+      globals.input = globals.input.substring(0,globals.input.length-1);
+
+    }
+    lastChar = globals.input[globals.input.length - 1];
+    if (str == '=') {
+
+    }
+    // 마지막 글자가 숫자일때
+    // when  lastChar is number
+    else if (isNumeric(lastChar)) {
+      globals.input = globals.input + str;
+    }  else {
+      // 마지막 글자가 연산자일때 또는 여러가지 에러일떄
+      //when last Char is operator or something else errors.
+      Toast.show('Expression Error',
+          duration: Toast.lengthShort,
+          gravity: Toast.bottom,
+          textStyle: const TextStyle(fontSize: 25.0, color: Colors.white),
+          backgroundColor: Colors.black);
     }
   }
+}
 
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.tryParse(s) != null;
 }
