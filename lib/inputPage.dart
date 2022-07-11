@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:simple_calculator/constants.dart';
+import 'my-globals.dart' as globals;
 
 class InputPage extends StatefulWidget {
+
   const InputPage({Key? key}) : super(key: key);
 
   @override
@@ -10,16 +13,41 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
-    return const Align(
+    // TODO: implement build
+    return  Align(
       alignment: Alignment.bottomRight,
-      child: Text(
-        '0.0',
-        style: TextStyle(
-          fontSize: 30.0,
-          color: Colors.black,
+      child: Padding(
+        padding: kInputResultTextPadding,
+        child: Text(
+          globals.input,
+          style: kInputTextStyle,
+          textAlign: TextAlign.end,
         ),
-        textAlign: TextAlign.end,
       ),
     );
+
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+
   }
 }
+
+//
+// class _InputPageState extends State<InputPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return  Align(
+//       alignment: Alignment.bottomRight,
+//       child: Padding(
+//         padding: kInputResultTextPadding,
+//         child: Text(
+//           globals.input,
+//           style: kInputTextStyle,
+//           textAlign: TextAlign.end,
+//         ),
+//       ),
+//     );
+//   }
+// }
