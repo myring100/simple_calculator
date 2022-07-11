@@ -1,16 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'keyboard.dart';
 import 'inputPage.dart';
 import 'package:simple_calculator/resultPage.dart';
 import 'menuWidget.dart';
-
-
-
-String input = '';
-double result = 0.0;
-
+import 'my-globals.dart' as globals;
 
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({Key? key}) : super(key: key);
@@ -20,8 +13,9 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _CalculatorPage extends State<CalculatorPage> {
-  // String input = '';
-  // double result = 0.0;
+  String input = '';
+  double result = 0.0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +24,18 @@ class _CalculatorPage extends State<CalculatorPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          Expanded(flex: 2, child: InputPage()),
-          Expanded(flex: 2, child: ResultPage()),
-          Expanded(flex :1, child: MenuWidget()),
-          Expanded(flex: 7, child: Keyboard()),
+        children: [
+          const Expanded(flex: 2, child: InputPage()),
+          const Expanded(flex: 2, child: ResultPage()),
+          const Expanded(flex: 1, child: MenuWidget()),
+          Expanded(
+            flex: 7,
+            child: Keyboard(
+              buttonPressed: ()=> print('hihihi') ,
+            ),
+          ),
         ],
       ),
     );
   }
-
-  @override
-  void setState(VoidCallback fn) {
-
-  }
 }
-
-// enabledBorder: UnderlineInputBorder(
-//     borderSide: BorderSide(style: BorderStyle.solid,color: Colors.black)),
-// focusedBorder: UnderlineInputBorder(
-//     borderSide: BorderSide(color: Colors.black)),

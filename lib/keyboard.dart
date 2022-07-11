@@ -4,14 +4,11 @@ import 'package:simple_calculator/constants.dart';
 import 'calculator_page.dart';
 import 'my-globals.dart' as globals;
 import 'inputPage.dart';
-class Keyboard extends StatefulWidget {
-  const Keyboard({Key? key}) : super(key: key);
 
-  @override
-  State<Keyboard> createState() => _KeyboardState();
-}
+class Keyboard extends StatelessWidget {
+  const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
+  final VoidCallback buttonPressed;
 
-class _KeyboardState extends State<Keyboard> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,7 +67,9 @@ class _KeyboardState extends State<Keyboard> {
   RawMaterialButton iconButton(IconData icon) {
     return RawMaterialButton(
       onPressed: () {
+        print('hi1')
 
+        buttonPressed;
       },
       elevation: 2.0,
       fillColor: kKeyButtonFillColor,
@@ -86,12 +85,8 @@ class _KeyboardState extends State<Keyboard> {
   RawMaterialButton numButton(String input) {
     return RawMaterialButton(
         onPressed: () {
-        setState((){
-          globals.input = '${globals.input}hihi';
-          print(globals.input);
-          const InputPage().createState();
-          const CalculatorPage().createState();
-        });
+          print('hi1');
+           buttonPressed;
         },
         elevation: 2.0,
         fillColor: kKeyButtonFillColor,
