@@ -1,5 +1,5 @@
 
 library globals;
 
-String input = '9u99';
+String input = '';
 double result = 0.0;

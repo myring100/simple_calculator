@@ -27,27 +27,4 @@ class _InputPageState extends State<InputPage> {
     );
 
   }
-
-  @override
-  void setState(VoidCallback fn) {
-
-  }
 }
-
-//
-// class _InputPageState extends State<InputPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return  Align(
-//       alignment: Alignment.bottomRight,
-//       child: Padding(
-//         padding: kInputResultTextPadding,
-//         child: Text(
-//           globals.input,
-//           style: kInputTextStyle,
-//           textAlign: TextAlign.end,
-//         ),
-//       ),
-//     );
-//   }
-// }

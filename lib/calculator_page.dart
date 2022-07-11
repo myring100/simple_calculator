@@ -13,9 +13,12 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _CalculatorPage extends State<CalculatorPage> {
-  String input = '';
-  double result = 0.0;
 
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +28,14 @@ class _CalculatorPage extends State<CalculatorPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Expanded(flex: 2, child: InputPage()),
-          const Expanded(flex: 2, child: ResultPage()),
-          const Expanded(flex: 1, child: MenuWidget()),
+          Expanded(flex: 2, child: InputPage()),
+          Expanded(flex: 2, child: ResultPage()),
+          Expanded(flex: 1, child: MenuWidget()),
           Expanded(
             flex: 7,
             child: Keyboard(
-              buttonPressed: ()=> print('hihihi') ,
+              buttonPressed: () => setState(() {
+              }),
             ),
           ),
         ],

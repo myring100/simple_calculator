@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_calculator/constants.dart';
-import 'calculator_page.dart';
 import 'my-globals.dart' as globals;
-import 'inputPage.dart';
 
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
@@ -20,8 +18,8 @@ class Keyboard extends StatelessWidget {
           children: [
             numButton('C'),
             numButton('( )'),
-            iconButton(CupertinoIcons.percent),
-            iconButton(CupertinoIcons.divide),
+            iconButton(CupertinoIcons.percent, '%'),
+            iconButton(CupertinoIcons.divide, '/'),
           ],
         ),
         Row(
@@ -30,7 +28,7 @@ class Keyboard extends StatelessWidget {
             numButton(7.toString()),
             numButton(8.toString()),
             numButton(9.toString()),
-            iconButton(CupertinoIcons.multiply),
+            iconButton(CupertinoIcons.multiply, '*'),
           ],
         ),
         Row(
@@ -39,7 +37,7 @@ class Keyboard extends StatelessWidget {
             numButton(4.toString()),
             numButton(5.toString()),
             numButton(6.toString()),
-            iconButton(CupertinoIcons.plus),
+            iconButton(CupertinoIcons.plus, '+'),
           ],
         ),
         Row(
@@ -48,7 +46,7 @@ class Keyboard extends StatelessWidget {
             numButton(1.toString()),
             numButton(2.toString()),
             numButton(3.toString()),
-            iconButton(CupertinoIcons.minus),
+            iconButton(CupertinoIcons.minus, '-'),
           ],
         ),
         Row(
@@ -57,19 +55,18 @@ class Keyboard extends StatelessWidget {
             numButton('+/-'.toString()),
             numButton(0.toString()),
             numButton('.'),
-            iconButton(CupertinoIcons.equal),
+            iconButton(CupertinoIcons.equal, '='),
           ],
         ),
       ],
     );
   }
 
-  RawMaterialButton iconButton(IconData icon) {
+  RawMaterialButton iconButton(IconData icon, String str) {
     return RawMaterialButton(
       onPressed: () {
-        print('hi1')
-
-        buttonPressed;
+        operatorCheck(str);
+        buttonPressed();
       },
       elevation: 2.0,
       fillColor: kKeyButtonFillColor,
@@ -85,8 +82,24 @@ class Keyboard extends StatelessWidget {
   RawMaterialButton numButton(String input) {
     return RawMaterialButton(
         onPressed: () {
-          print('hi1');
-           buttonPressed;
+          switch (input) {
+            case 'C' :
+              clear();
+              break;
+            case '( )' :
+              brasketTest();
+              break;
+            case '.' :
+              dotTest();
+              break;
+            default :
+              globals.input = globals.input + input;
+          }
+          // if(input == 'C') clear();
+          // else if(input == '( )') brasketTest();
+          // else if(input=='.') dotTest();
+          // else globals.input = globals.input+input;
+          buttonPressed();
         },
         elevation: 2.0,
         fillColor: kKeyButtonFillColor,
@@ -97,4 +110,40 @@ class Keyboard extends StatelessWidget {
           style: kKeyButtonTextStyle,
         ));
   }
+
+  void clear() {
+    globals.input = '';
+  }
+
+  void brasketTest() {
+
+  }
+
+  void dotTest() {
+
+  }
+
+  void operatorCheck(String str) {
+    switch (str) {
+      case '%' :
+        {}
+        break;
+      case '/' :
+        {}
+        break;
+      case '*' :
+        {}
+        break;
+      case '+' :
+        {}
+        break;
+      case '-' :
+        {}
+        break;
+      case '=' :
+        {}
+        break;
+    }
+  }
+
 }
