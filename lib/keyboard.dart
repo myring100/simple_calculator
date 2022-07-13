@@ -95,8 +95,8 @@ class Keyboard extends StatelessWidget {
             case '.':
               dotTest();
               break;
-            case '+/-' :
-              //todo here write some function for +/-
+            case '+/-':
+            //todo here write some function for +/-
             default:
               globals.input = globals.input + input;
           }
@@ -122,14 +122,112 @@ class Keyboard extends StatelessWidget {
   }
 
   void brasketTest() {
-
-
+    String lastChar = globals.input[globals.input.length - 1];
+    // List<String> operators = ['(', '%', '/', '*', '+', '-'];
+    //마지막 글자가 숫자일때
+    if (isNumeric(lastChar)) {
+      if (isLeftRightBrasketEqual()) {
+        addStringtoInput('*(');
+      }
+       else {
+         addStringtoInput(')');
+      }
+    }
+    //마지막 글자가 숫자가 아닐때 =>> 연산자 일때
+    else {
+      switch (lastChar) {
+        case '+':
+          {
+            addStringtoInput('(');
+            break;
+          }
+        case '-':
+          {
+            addStringtoInput('(');
+            break;
+          }
+        case '*':
+          {
+            addStringtoInput('(');
+            break;
+          }
+        case '/':
+          {
+            addStringtoInput('(');
+            break;
+          }
+        case '%':
+          {
+            addStringtoInput('(');
+            break;
+          }
+        case '(':
+          {
+            addStringtoInput('(');
+            break;
+          }
+        case ')':
+          {
+            isLeftRightBrasketEqual()? addStringtoInput('*(') : addStringtoInput(')');
+            break;
+          }
+        case '.':
+          {
+            if( isLeftRightBrasketEqual()){
+              deleteLastCharinput();
+              addStringtoInput('*(');
+            }
+            else{
+              addStringtoInput(')');
+            }
+            break;
+          }
+      }
+    }
   }
 
   void dotTest() {
-    globals.input = '${globals.input}.';
-
-
+    String input = globals.input;
+    String stringAfterOperator =
+    input.split('+').last.split('-').last.split('*').last.split('/').last.split('%').last
+    .split('(').last.split(')').last.toString();
+    String lastChar = globals.input[globals.input.length - 1];
+    switch (lastChar) {
+      case '.':
+        showToast('Expression Error');
+        break;
+      case '(':
+        addStringtoInput('0.');
+        break;
+      case ')':
+        addStringtoInput('*0.');
+        break;
+      case '%':
+        addStringtoInput('0.');
+        break;
+      case '/':
+        addStringtoInput('0.');
+        break;
+      case '*':
+        addStringtoInput('0.');
+        break;
+      case '+':
+        addStringtoInput('0.');
+        break;
+      case '-':
+        addStringtoInput('0.');
+        break;
+      default:
+        {
+          if(stringAfterOperator.contains('.')){
+            showToast('Expression Error');
+            break;
+          }else{
+            addStringtoInput('.');
+            break;
+          }
+        }
+    }
   }
 
   void operatorCheck(String str) {
@@ -138,27 +236,42 @@ class Keyboard extends StatelessWidget {
     //:todo  result still contains same result.
     // lastChar == '.' ? globals.input= '${globals.input}0' :globals.input = globals.input;
 
-    if(lastChar == '.'){
-      globals.input = globals.input.substring(0,globals.input.length-1);
-
+    if (lastChar == '.') {
+      deleteLastCharinput();
     }
     lastChar = globals.input[globals.input.length - 1];
     if (str == '=') {
-
     }
     // 마지막 글자가 숫자일때
     // when  lastChar is number
     else if (isNumeric(lastChar)) {
       globals.input = globals.input + str;
-    }  else {
+    } else {
       // 마지막 글자가 연산자일때 또는 여러가지 에러일떄
       //when last Char is operator or something else errors.
-      Toast.show('Expression Error',
-          duration: Toast.lengthShort,
-          gravity: Toast.bottom,
-          textStyle: const TextStyle(fontSize: 25.0, color: Colors.white),
-          backgroundColor: Colors.black);
+      showToast('Expression Error');
     }
+  }
+
+  void addStringtoInput(String str) {
+    globals.input = globals.input + str;
+  }
+
+  void deleteLastCharinput() {
+    globals.input = globals.input.substring(0, globals.input.length - 1);
+  }
+
+  bool isLeftRightBrasketEqual() {
+    bool result;
+    String input = globals.input;
+    String left = '(';
+    String right = ')';
+
+    left.allMatches(input).length == right.allMatches(input).length
+        ? result = true
+        : result = false;
+
+    return result;
   }
 }
 
@@ -167,4 +280,12 @@ bool isNumeric(String s) {
     return false;
   }
   return double.tryParse(s) != null;
+}
+
+void showToast(String str) {
+  Toast.show(str,
+      duration: Toast.lengthShort,
+      gravity: Toast.bottom,
+      textStyle: const TextStyle(fontSize: 25.0, color: Colors.white),
+      backgroundColor: Colors.black);
 }
