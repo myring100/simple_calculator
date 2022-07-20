@@ -136,7 +136,7 @@ class Keyboard extends StatelessWidget {
     if(globals.input.length==1 && lastChar=='0'){
       addStringtoInput('(');
     }
-
+    //
     // List<String> operators = ['(', '%', '/', '*', '+', '-'];
     //마지막 글자가 숫자일때
    else if (isNumeric(lastChar)) {
