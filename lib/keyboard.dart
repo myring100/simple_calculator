@@ -246,7 +246,7 @@ class Keyboard extends StatelessWidget {
   }
 
 
-  //
+  //123
   void operatorCheck(String str) {
     String lastChar = globals.input[globals.input.length - 1];
     //:todo later us`er type = => push input & result to history and clear input to 0.0
