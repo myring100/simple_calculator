@@ -3,9 +3,8 @@ import 'keyboard.dart';
 import 'inputPage.dart';
 import 'package:simple_calculator/resultPage.dart';
 import 'menuWidget.dart';
-import 'my-globals.dart' as globals;
-import 'package:toast/toast.dart';
-
+import 'my-globals.dart' as global;
+import 'calculator.dart';
 
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _CalculatorPage extends State<CalculatorPage> {
-
   @override
   void setState(VoidCallback fn) {
     // TODO: implement setState
@@ -37,7 +35,9 @@ class _CalculatorPage extends State<CalculatorPage> {
             flex: 7,
             child: Keyboard(
               buttonPressed: () => setState(() {
-
+                if (global.input != '0'||global.input !='(') {
+                  // complete();
+                }
               }),
             ),
           ),
@@ -45,4 +45,13 @@ class _CalculatorPage extends State<CalculatorPage> {
       ),
     );
   }
+}
+
+void complete() {
+  String input = global.input;
+  final calculator = Calculator();
+  double result = calculator.initCalculate(input);
+  print(result.toString());
+
+  global.resultString = result.toString();
 }

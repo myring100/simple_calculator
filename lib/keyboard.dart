@@ -8,6 +8,10 @@ class Keyboard extends StatelessWidget {
   const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
   final VoidCallback buttonPressed;
 
+  void complete(){
+    globals.resultString = globals.input;
+  }
+
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
@@ -65,10 +69,12 @@ class Keyboard extends StatelessWidget {
     );
   }
 
+
   RawMaterialButton iconButton(IconData icon, String str) {
     return RawMaterialButton(
       onPressed: () {
         operatorCheck(str);
+        complete();
         buttonPressed();
       },
       elevation: 2.0,
@@ -98,12 +104,14 @@ class Keyboard extends StatelessWidget {
             case '+/-':
             //todo here write some function for +/-
             default:
-              globals.input = globals.input + input;
+              if(globals.input == '0'){
+                globals.input = input;
+              }
+              else{
+                globals.input = globals.input + input;
+              }
           }
-          // if(input == 'C') clear();
-          // else if(input == '( )') brasketTest();
-          // else if(input=='.') dotTest();
-          // else globals.input = globals.input+input;
+          complete();
           buttonPressed();
         },
         elevation: 2.0,
@@ -117,8 +125,9 @@ class Keyboard extends StatelessWidget {
   }
 
   void clear() {
-    globals.input = '';
-    globals.result = 0.0;
+    globals.input = '0';
+    globals.resultString = '0';
+    print('clear button clicked');
   }
 
   void brasketTest() {
@@ -230,11 +239,12 @@ class Keyboard extends StatelessWidget {
     }
   }
 
+
+  //
   void operatorCheck(String str) {
     String lastChar = globals.input[globals.input.length - 1];
     //:todo later us`er type = => push input & result to history and clear input to 0.0
     //:todo  result still contains same result.
-    // lastChar == '.' ? globals.input= '${globals.input}0' :globals.input = globals.input;
 
     if (lastChar == '.') {
       deleteLastCharinput();
@@ -245,8 +255,13 @@ class Keyboard extends StatelessWidget {
     // 마지막 글자가 숫자일때
     // when  lastChar is number
     else if (isNumeric(lastChar)) {
+      print('number presssed');
       globals.input = globals.input + str;
-    } else {
+    }
+    // else if(str=='-'){
+    //
+    // }
+    else {
       // 마지막 글자가 연산자일때 또는 여러가지 에러일떄
       //when last Char is operator or something else errors.
       showToast('Expression Error');

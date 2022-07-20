@@ -17,7 +17,7 @@ class _ResultPageState extends State<ResultPage> {
       child: Padding(
         padding: kInputResultTextPadding,
         child: Text(
-          globals.result.toString(),
+          globals.resultString,
           style: kInputTextStyle,
           textAlign: TextAlign.end,
         ),

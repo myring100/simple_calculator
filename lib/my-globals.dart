@@ -1,5 +1,6 @@
 
 library globals;
 
-String input = '';
+String input = '0';
 double result = 0.0;
+String resultString = '0';
