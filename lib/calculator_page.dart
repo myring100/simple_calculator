@@ -35,8 +35,10 @@ class _CalculatorPage extends State<CalculatorPage> {
             flex: 7,
             child: Keyboard(
               buttonPressed: () => setState(() {
-                if (global.input != '0'||global.input !='(') {
-                  // complete();
+                try{
+                  complete();
+                }catch(error){
+                  print('error here!!!!!!!!!');
                 }
               }),
             ),
@@ -51,7 +53,7 @@ void complete() {
   String input = global.input;
   final calculator = Calculator();
   double result = calculator.initCalculate(input);
-  print(result.toString());
+  print('result = ${result.toString()}');
 
   global.resultString = result.toString();
 }

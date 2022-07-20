@@ -1,21 +1,40 @@
 class Calculator {
   double initCalculate(String input) {
-    print('first input = $input');
-    List<String> inputList = stringtoList(input);
-    print('first inputlist = $inputList');
+    String inputString = input;
+    while(!isLeftRightBrasketEqual(input)){
+      inputString = '$inputString)';
+      if(isLeftRightBrasketEqual(inputString)) break;
+   }
 
+    List<String> inputList = stringtoList(inputString);
     List<String> holder = inputList;
+
     while (inputList.contains('(')) {
       holder = trimList(inputList);
     }
-    //:todo holder의 마지막 인덱스가 숫자가 아니면 remove last!
-    if(!isNumeric(holder.last)){
+    if (!isNumeric(holder.last)) {
       holder.removeLast();
     }
-    print('holder value = $holder');
-    print('initcalcualte result = ' +
-        calculate(multiplyCalculateFirst(holder)).toString());
-    return calculate(multiplyCalculateFirst(holder));
+    if (calculate(multiplyCalculateFirst(holder)) == 0.0) {
+      print('result = ${0.0}');
+      return 0.0;
+    } else {
+      print('result = ${calculate(multiplyCalculateFirst(holder))}');
+
+      return calculate(multiplyCalculateFirst(holder));
+    }
+  }
+  bool isLeftRightBrasketEqual(String str) {
+    bool result;
+    String input = str;
+    String left = '(';
+    String right = ')';
+
+    left.allMatches(input).length == right.allMatches(input).length
+        ? result = true
+        : result = false;
+
+    return result;
   }
 
   List<String> stringtoList(String input) {
@@ -27,9 +46,8 @@ class Calculator {
     for (var element in input.runes) {
       String char = String.fromCharCode(element);
       if (isNumeric(char) || char == '.') {
-        print('here is number added');
         num = num + char;
-        if (result.isNotEmpty){
+        if (result.isNotEmpty) {
           if (isNumeric(result.last) || result.last == '.') result.removeLast();
         }
         result.add(num);
@@ -44,17 +62,23 @@ class Calculator {
     return result;
   }
 
+
   List<String> trimList(List<String> input) {
     List<String> result = input;
     List<String> holder = [];
-    int lastLeft = input.lastIndexOf('(');
-    int firstRight = input.indexOf(')', lastLeft);
-    holder = input.sublist(lastLeft + 1, firstRight);
+    int left =0;
+    int right = 0;
 
-    List<String> holdingNum = [calculate(holder).toString()];
-    result.replaceRange(lastLeft, firstRight + 1, holdingNum);
-    print('trim() result = ' + result.toString());
 
+    if(left==right){
+      int lastLeft = input.lastIndexOf('(');
+      int firstRight = input.indexOf(')', lastLeft);
+      holder = input.sublist(lastLeft + 1, firstRight);
+
+      List<String> holdingNum = [calculate(holder).toString()];
+      result.replaceRange(lastLeft, firstRight + 1, holdingNum);
+      print('trim() result = ' + result.toString());
+    }
     return result;
   }
 

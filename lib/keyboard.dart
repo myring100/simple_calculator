@@ -74,7 +74,6 @@ class Keyboard extends StatelessWidget {
     return RawMaterialButton(
       onPressed: () {
         operatorCheck(str);
-        complete();
         buttonPressed();
       },
       elevation: 2.0,
@@ -106,12 +105,14 @@ class Keyboard extends StatelessWidget {
             default:
               if(globals.input == '0'){
                 globals.input = input;
+              }else if(globals.input.endsWith(')')){
+                 addStringtoInput('*$input');
               }
+
               else{
-                globals.input = globals.input + input;
+                addStringtoInput(input);
               }
           }
-          complete();
           buttonPressed();
         },
         elevation: 2.0,
@@ -132,9 +133,13 @@ class Keyboard extends StatelessWidget {
 
   void brasketTest() {
     String lastChar = globals.input[globals.input.length - 1];
+    if(globals.input.length==1 && lastChar=='0'){
+      addStringtoInput('(');
+    }
+
     // List<String> operators = ['(', '%', '/', '*', '+', '-'];
     //마지막 글자가 숫자일때
-    if (isNumeric(lastChar)) {
+   else if (isNumeric(lastChar)) {
       if (isLeftRightBrasketEqual()) {
         addStringtoInput('*(');
       }
@@ -144,6 +149,7 @@ class Keyboard extends StatelessWidget {
     }
     //마지막 글자가 숫자가 아닐때 =>> 연산자 일때
     else {
+
       switch (lastChar) {
         case '+':
           {
@@ -269,6 +275,9 @@ class Keyboard extends StatelessWidget {
   }
 
   void addStringtoInput(String str) {
+    if(globals.input =='0'){
+      globals.input = '';
+    }
     globals.input = globals.input + str;
   }
 
