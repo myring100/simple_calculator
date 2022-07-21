@@ -18,10 +18,16 @@ class _InputPageState extends State<InputPage> {
       alignment: Alignment.bottomRight,
       child: Padding(
         padding: kInputResultTextPadding,
-        child: Text(
-          globals.input,
-          style: kInputTextStyle,
-          textAlign: TextAlign.end,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          reverse: true,
+          child: Text(
+            globals.input,
+
+            overflow: TextOverflow.clip,
+            style: kInputTextStyle,
+            textAlign: TextAlign.end,
+          ),
         ),
       ),
     );

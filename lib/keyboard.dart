@@ -4,6 +4,7 @@ import 'package:simple_calculator/constants.dart';
 import 'my-globals.dart' as globals;
 import 'package:toast/toast.dart';
 
+
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
   final VoidCallback buttonPressed;
@@ -17,112 +18,145 @@ class Keyboard extends StatelessWidget {
     ToastContext().init(context);
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            numButton('C'),
-            numButton('( )'),
-            iconButton(CupertinoIcons.percent, '%'),
-            iconButton(CupertinoIcons.divide, '/'),
-          ],
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              numButton('C'),
+              numButton('( )'),
+              iconButton(CupertinoIcons.percent, '%'),
+              iconButton(CupertinoIcons.divide, '/'),
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            numButton(7.toString()),
-            numButton(8.toString()),
-            numButton(9.toString()),
-            iconButton(CupertinoIcons.multiply, '*'),
-          ],
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              numButton(7.toString()),
+              numButton(8.toString()),
+              numButton(9.toString()),
+              iconButton(CupertinoIcons.multiply, '*'),
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            numButton(4.toString()),
-            numButton(5.toString()),
-            numButton(6.toString()),
-            iconButton(CupertinoIcons.plus, '+'),
-          ],
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              numButton(4.toString()),
+              numButton(5.toString()),
+              numButton(6.toString()),
+              iconButton(CupertinoIcons.plus, '+'),
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            numButton(1.toString()),
-            numButton(2.toString()),
-            numButton(3.toString()),
-            iconButton(CupertinoIcons.minus, '-'),
-          ],
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              numButton(1.toString()),
+              numButton(2.toString()),
+              numButton(3.toString()),
+              iconButton(CupertinoIcons.minus, '-'),
+            ],
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            numButton('+/-'.toString()),
-            numButton(0.toString()),
-            numButton('.'),
-            iconButton(CupertinoIcons.equal, '='),
-          ],
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              numButton('+/-'.toString()),
+              numButton(0.toString()),
+              numButton('.'),
+              iconButton(CupertinoIcons.equal, '='),
+            ],
+          ),
         ),
       ],
     );
   }
 
 
-  RawMaterialButton iconButton(IconData icon, String str) {
-    return RawMaterialButton(
-      onPressed: () {
-        operatorCheck(str);
-        buttonPressed();
-      },
-      elevation: 2.0,
-      fillColor: kKeyButtonFillColor,
-      shape: kKeyButtonShape,
-      constraints: kKeyButtonConstraint,
-      child: Icon(
-        icon,
-        size: 45.0,
+  Expanded iconButton(IconData icon, String str) {
+    return Expanded(
+      flex: 1,
+      child: Padding(
+        padding: kKeyboardBTN_padding,
+        child: RawMaterialButton(
+          onPressed: () {
+            operatorCheck(str);
+            buttonPressed();
+          },
+          elevation: 2.0,
+          fillColor: kKeyButtonFillColor,
+          shape: kKeyButtonShape,
+          constraints: kKeyButtonConstraint,
+          child: Center(
+            child: Icon(
+              icon,
+              size: 45.0,
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  RawMaterialButton numButton(String input) {
-    return RawMaterialButton(
-        onPressed: () {
-          switch (input) {
-            case 'C':
-              clear();
-              break;
-            case '( )':
-              brasketTest();
-              break;
-            case '.':
-              dotTest();
-              break;
-            case '+/-':
-            //todo here write some function for +/-
-            default:
-              if(globals.input == '0'){
-                globals.input = input;
-              }else if(globals.input.endsWith(')')){
-                 addStringtoInput('*$input');
-              }
+  Expanded numButton(String input) {
+    return Expanded(
+      flex: 1,
+      child: Padding(
+        padding: kKeyboardBTN_padding,
+        child: RawMaterialButton(
+          onPressed: () {
+              switch (input) {
+                case 'C':
+                  clear();
+                  break;
+                case '( )':
+                  brasketTest();
+                  break;
+                case '.':
+                  dotTest();
+                  break;
+                case '+/-':
+                //todo here write some function for +/-
+                default:
+                  if(globals.input == '0'){
+                    globals.input = input;
+                  }else if(globals.input.endsWith(')')){
+                     addStringtoInput('*$input');
+                  }
 
-              else{
-                addStringtoInput(input);
+                  else{
+                    addStringtoInput(input);
+                  }
               }
-          }
-          buttonPressed();
-        },
-        elevation: 2.0,
-        fillColor: kKeyButtonFillColor,
-        shape: kKeyButtonShape,
-        constraints: kKeyButtonConstraint,
-        child: Text(
-          input,
-          style: kKeyButtonTextStyle,
-        ));
+              buttonPressed();
+            },
+          elevation: 2.0,
+          fillColor: kKeyButtonFillColor,
+          shape: kKeyButtonShape,
+          constraints: kKeyButtonConstraint,
+          child: Center(
+
+              child: Text(
+                input,
+                style: kKeyButtonTextStyle,
+              ),
+            ),
+        ),
+      ),
+    );
   }
 
   void clear() {

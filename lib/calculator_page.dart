@@ -22,18 +22,20 @@ class _CalculatorPage extends State<CalculatorPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    print('width = $width Height = $height');
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(flex: 2, child: InputPage()),
-          Expanded(flex: 2, child: ResultPage()),
-          Expanded(flex: 1, child: MenuWidget()),
-          Expanded(
-            flex: 7,
-            child: Keyboard(
+          Flexible(flex: 3, child: InputPage()),
+          Flexible(flex: 2, child: ResultPage()),
+          Flexible(flex: 1, child: MenuWidget()),
+          Flexible(flex: 7, child: Keyboard(
               buttonPressed: () => setState(() {
                 try{
                   complete();
