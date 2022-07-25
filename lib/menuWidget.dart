@@ -30,6 +30,7 @@ class _MenuWidgetState extends State<MenuWidget> {
             color: kMenuBTNColor,
             onPressed: () {
               _showAttach(context);
+
             },
           ),
           IconButton(
@@ -65,32 +66,71 @@ class _MenuWidgetState extends State<MenuWidget> {
           ),
           alignment: Alignment.center,
           child: Builder(builder: (context) {
-            return FutureBuilder<List<History>>(
-                future: getList(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    List<History>? historyList = snapshot.data;
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(10),
-                      itemCount: historyList?.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Center(
-                            child: Row(
-                              children: [
-                                Text(historyList![index].content),
-                                Text(historyList[index].result)
-                              ],
-                            ),
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: FutureBuilder<List<History>>(
+                  future: getList(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<History>? historyList = snapshot.data;
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: historyList?.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                elevation: 3,
+                                margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 40,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${historyList![index].content} = ',
+                                          style: const TextStyle(fontSize: 20),
+                                        ),
+                                        Text(
+                                          historyList[index].result,
+                                          style: const TextStyle(fontSize: 20),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    );
-                  } else {
-                    return Container();
-                  }
-                });
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: ElevatedButton(
+                              style: kClearBtn,
+                              onPressed: () {
+                              DB database = DB();
+                              database.deleteAllHistory();
+                              SmartDialog.dismiss();
+                              },
+                              child: const Text(
+                                'Clear All',
+                                style: const TextStyle(fontSize: 40),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }),
+            );
           }),
         );
       },

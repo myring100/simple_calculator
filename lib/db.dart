@@ -66,16 +66,10 @@ class DB {
   //   );
   // }
 
-  Future<void> deleteHistory(int id) async {
+  Future<void> deleteAllHistory() async {
     final db = await database;
-
-    // 데이터베이스에서 Memo를 삭제합니다.
     await db.delete(
-      TableName,
-      // 특정 memo를 제거하기 위해 `where` 절을 사용하세요
-      where: "id = ?",
-      // Memo의 id를 where의 인자로 넘겨 SQL injection을 방지합니다.
-      whereArgs: [id],
+      TableName
     );
   }
 

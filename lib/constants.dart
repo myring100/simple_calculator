@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 const kKeyButtonTextStyle = TextStyle(
   fontSize: 40.0,
   color: Colors.black,
-
 );
 const kMenuBTNColor = Colors.black;
-const kKeyboardBTN_padding  = EdgeInsets.symmetric(vertical: 4,horizontal: 2);
+const kKeyboardBTN_padding = EdgeInsets.symmetric(vertical: 4, horizontal: 2);
 
 const kKeyButtonPadding = EdgeInsets.all(10.0);
 const kKeyButtonFillColor = Colors.grey;
@@ -16,6 +15,24 @@ const kKeyButtonConstraint = BoxConstraints(
   minHeight: 36.0,
 );
 
-const kInputTextStyle = TextStyle(fontSize: 28.0,height: 1.4,letterSpacing: 1,);
-const kResultTextStyle = TextStyle(fontSize: 33.0,height: 1.4,letterSpacing: 1);
+const kInputTextStyle = TextStyle(
+  fontSize: 28.0,
+  height: 1.4,
+  letterSpacing: 1,
+);
+const kResultTextStyle =
+    TextStyle(fontSize: 33.0, height: 1.4, letterSpacing: 1);
 const kInputResultTextPadding = EdgeInsets.all(13);
+
+
+
+
+ButtonStyle kClearBtn = ElevatedButton.styleFrom(
+  primary: Colors.green,
+  onPrimary: Colors.white,
+  shadowColor: Colors.greenAccent,
+  elevation: 3,
+  shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(32.0)),
+  minimumSize: Size(250, 80), //////// HERE
+);

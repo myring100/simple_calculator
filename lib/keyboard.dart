@@ -100,18 +100,17 @@ class Keyboard extends StatelessWidget {
         child: RawMaterialButton(
           onPressed: () async {
             operatorCheck(str);
-            buttonPressed();
             //:todo 여기서 = 일때의 일이 벌어진다.
             if(str=='='){
               History history = History(content: globals.input,
               result: globals.resultString);
-
               var dataBase = DB();
               dataBase.insertHistory(history);
-              List<History> historyList =await dataBase.history();
-              print('added : id = ${historyList.last.id} content = ${historyList.last.content} result = ${historyList.last.result}');
-
+              globals.input = globals.resultString;
+              globals.resultString = '0';
             }
+            buttonPressed();
+
           },
           elevation: 2.0,
           fillColor: kKeyButtonFillColor,
