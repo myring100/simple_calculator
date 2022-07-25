@@ -16,15 +16,12 @@ class _ResultPageState extends State<ResultPage> {
       alignment: Alignment.bottomRight,
       child: Padding(
         padding: kInputResultTextPadding,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          reverse: true,
-          child: Text(
-            globals.resultString,
-            overflow: TextOverflow.clip,
-            style: kInputTextStyle,
-            textAlign: TextAlign.end,
-          ),
+        child: Text(
+          globals.resultString,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          style: kResultTextStyle,
+          textAlign: TextAlign.end,
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Calculator {
   double initCalculate(String input) {
     String inputString = input;
@@ -21,7 +23,7 @@ class Calculator {
     } else {
       print('result = ${calculate(multiplyCalculateFirst(holder))}');
 
-      return calculate(multiplyCalculateFirst(holder));
+      return double.parse(calculate(multiplyCalculateFirst(holder)).toStringAsFixed(4));
     }
   }
   bool isLeftRightBrasketEqual(String str) {
@@ -81,7 +83,6 @@ class Calculator {
     }
     return result;
   }
-
   double calculate(List<String> input) {
     if (input.length == 1) {
       return double.parse(input[0]);
@@ -112,6 +113,7 @@ class Calculator {
       }
     }
     print('calculate() result = ' + result.toString());
+    // return result;
     return result;
   }
 

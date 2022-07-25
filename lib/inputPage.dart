@@ -23,7 +23,6 @@ class _InputPageState extends State<InputPage> {
           reverse: true,
           child: Text(
             globals.input,
-
             overflow: TextOverflow.clip,
             style: kInputTextStyle,
             textAlign: TextAlign.end,

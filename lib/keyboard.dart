@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:simple_calculator/constants.dart';
+import 'package:simple_calculator/history.dart';
 import 'my-globals.dart' as globals;
 import 'package:toast/toast.dart';
+
+import 'db.dart';
+
 
 
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
   final VoidCallback buttonPressed;
+
 
   void complete(){
     globals.resultString = globals.input;
@@ -74,7 +80,7 @@ class Keyboard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              numButton('+/-'.toString()),
+              numButton('00'.toString()),
               numButton(0.toString()),
               numButton('.'),
               iconButton(CupertinoIcons.equal, '='),
@@ -92,9 +98,19 @@ class Keyboard extends StatelessWidget {
       child: Padding(
         padding: kKeyboardBTN_padding,
         child: RawMaterialButton(
-          onPressed: () {
+          onPressed: () async {
             operatorCheck(str);
             buttonPressed();
+            //:todo 여기서 = 일때의 일이 벌어진다.
+            if(str=='='){
+              History history = History(id: 1,content: 'hi content',
+              result: 'hi result');
+              var dataBase = DB();
+              dataBase.insertHistory(history);
+              print(await dataBase.history());
+
+
+            }
           },
           elevation: 2.0,
           fillColor: kKeyButtonFillColor,

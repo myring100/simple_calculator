@@ -34,16 +34,27 @@ class _CalculatorPage extends State<CalculatorPage> {
         children: [
           Flexible(flex: 3, child: InputPage()),
           Flexible(flex: 2, child: ResultPage()),
-          Flexible(flex: 1, child: MenuWidget()),
-          Flexible(flex: 7, child: Keyboard(
-              buttonPressed: () => setState(() {
-                try{
-                  complete();
-                }catch(error){
-                  print('error here!!!!!!!!!');
-                }
-              }),
-            ),
+          Flexible(flex: 1, child: MenuWidget(buttonPressed: () =>setState(() {
+            try{
+              complete();
+            }catch(error){
+              print('error here!!!!!!!!!');
+            }
+          }),)),
+          Flexible(flex: 9, child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 20),
+            child: Keyboard(
+                buttonPressed: () => setState(() {
+                  try{
+                    complete();
+                    print('global result = ${global.resultString}');
+
+                  }catch(error){
+                    print('error here!!!!!!!!!');
+                  }
+                }),
+              ),
+          ),
           ),
         ],
       ),
