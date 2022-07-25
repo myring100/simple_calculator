@@ -5,6 +5,7 @@ import 'package:simple_calculator/resultPage.dart';
 import 'menuWidget.dart';
 import 'my-globals.dart' as global;
 import 'calculator.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({Key? key}) : super(key: key);
@@ -34,27 +35,32 @@ class _CalculatorPage extends State<CalculatorPage> {
         children: [
           Flexible(flex: 3, child: InputPage()),
           Flexible(flex: 2, child: ResultPage()),
-          Flexible(flex: 1, child: MenuWidget(buttonPressed: () =>setState(() {
-            try{
-              complete();
-            }catch(error){
-              print('error here!!!!!!!!!');
-            }
-          }),)),
-          Flexible(flex: 9, child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 20),
-            child: Keyboard(
+          Flexible(
+              flex: 1,
+              child: MenuWidget(
                 buttonPressed: () => setState(() {
-                  try{
+                  try {
+                    complete();
+                  } catch (error) {
+                    print('error here!!!!!!!!!');
+                  }
+                }),
+              )),
+          Flexible(
+            flex: 9,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 20),
+              child: Keyboard(
+                buttonPressed: () => setState(() {
+                  try {
                     complete();
                     print('global result = ${global.resultString}');
-
-                  }catch(error){
+                  } catch (error) {
                     print('error here!!!!!!!!!');
                   }
                 }),
               ),
-          ),
+            ),
           ),
         ],
       ),

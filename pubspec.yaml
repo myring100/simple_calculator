@@ -34,6 +34,10 @@ dependencies:
   toast: ^0.3.0
   sqflite:
   path:
+  backdrop_modal_route: ^2.0.2
+  grouped_list: ^5.1.2
+  group_list_view: ^1.1.1
+  flutter_smart_dialog: ^4.5.3+7
 dev_dependencies:
   flutter_test:
     sdk: flutter
