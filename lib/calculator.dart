@@ -136,7 +136,7 @@ class Calculator {
         list.add(holderingNum.toString());
       } else if (input[i] == '%') {
         double holderingNum =
-            double.parse(list.last) % double.parse(input[i + 1]);
+        double.parse(list.last) *  (double.parse(input[i + 1]) / 100);
         list.removeLast();
         list.add(holderingNum.toString());
       } else {

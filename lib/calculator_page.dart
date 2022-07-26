@@ -17,7 +17,6 @@ class CalculatorPage extends StatefulWidget {
 class _CalculatorPage extends State<CalculatorPage> {
   @override
   void setState(VoidCallback fn) {
-    // TODO: implement setState
     super.setState(fn);
   }
 
@@ -49,7 +48,7 @@ class _CalculatorPage extends State<CalculatorPage> {
           Flexible(
             flex: 6,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
               child: Keyboard(
                 buttonPressed: () => setState(() {
                   try {

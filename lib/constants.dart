@@ -5,7 +5,7 @@ const kKeyButtonTextStyle = TextStyle(
   color: Colors.black,
 );
 const kMenuBTNColor = Colors.black;
-const kKeyboardBTN_padding = EdgeInsets.fromLTRB(5,0,5,0);
+const kKeyboardBTNPadding = EdgeInsets.fromLTRB(5,0,5,0);
 
 const kKeyButtonPadding = EdgeInsets.all(10.0);
 const kKeyButtonFillColor = Colors.grey;
