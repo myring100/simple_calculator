@@ -5,7 +5,7 @@ const kKeyButtonTextStyle = TextStyle(
   color: Colors.black,
 );
 const kMenuBTNColor = Colors.black;
-const kKeyboardBTN_padding = EdgeInsets.symmetric(vertical: 4, horizontal: 2);
+const kKeyboardBTN_padding = EdgeInsets.fromLTRB(5,0,5,0);
 
 const kKeyButtonPadding = EdgeInsets.all(10.0);
 const kKeyButtonFillColor = Colors.grey;
@@ -34,5 +34,5 @@ ButtonStyle kClearBtn = ElevatedButton.styleFrom(
   elevation: 3,
   shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(32.0)),
-  minimumSize: Size(250, 80), //////// HERE
+  minimumSize: const Size(150 , 50), //////// HERE
 );

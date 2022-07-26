@@ -19,7 +19,7 @@ class DB {
       // 데이터베이스가 처음 생성될 때, dog를 저장하기 위한 테이블을 생성합니다.
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE history(id INTEGER PRIMARY KEY AUTO_INCREMENT, content TEXT, result TEXT)",
+          "CREATE TABLE history(id INTEGER PRIMARY KEY, content TEXT, result TEXT)",
         );
       },
       // 버전을 설정하세요. onCreate 함수에서 수행되며 데이터베이스 업그레이드와 다운그레이드를
@@ -33,7 +33,7 @@ class DB {
     await db.insert(
       TableName,
       history.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.abort,
     );
   }
   Future<List<History>> history() async {
