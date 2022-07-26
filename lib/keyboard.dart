@@ -8,14 +8,11 @@ import 'package:toast/toast.dart';
 
 import 'db.dart';
 
-
-
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key, required this.buttonPressed}) : super(key: key);
   final VoidCallback buttonPressed;
 
-
-  void complete(){
+  void complete() {
     globals.resultString = globals.input;
   }
 
@@ -29,88 +26,100 @@ class Keyboard extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              numButton('C'),
-              numButton('( )'),
-              iconButton(CupertinoIcons.percent, '%'),
-              iconButton(CupertinoIcons.divide, '/'),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                numButton('C'),
+                numButton('( )'),
+                iconButton(CupertinoIcons.percent, '%'),
+                iconButton(CupertinoIcons.divide, '/'),
+              ],
+            ),
           ),
         ),
         Expanded(
           flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              numButton(7.toString()),
-              numButton(8.toString()),
-              numButton(9.toString()),
-              iconButton(CupertinoIcons.multiply, '*'),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                numButton(7.toString()),
+                numButton(8.toString()),
+                numButton(9.toString()),
+                iconButton(CupertinoIcons.multiply, '*'),
+              ],
+            ),
           ),
         ),
         Expanded(
           flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              numButton(4.toString()),
-              numButton(5.toString()),
-              numButton(6.toString()),
-              iconButton(CupertinoIcons.plus, '+'),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                numButton(4.toString()),
+                numButton(5.toString()),
+                numButton(6.toString()),
+                iconButton(CupertinoIcons.plus, '+'),
+              ],
+            ),
           ),
         ),
         Expanded(
           flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              numButton(1.toString()),
-              numButton(2.toString()),
-              numButton(3.toString()),
-              iconButton(CupertinoIcons.minus, '-'),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                numButton(1.toString()),
+                numButton(2.toString()),
+                numButton(3.toString()),
+                iconButton(CupertinoIcons.minus, '-'),
+              ],
+            ),
           ),
         ),
         Expanded(
           flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              numButton('00'.toString()),
-              numButton(0.toString()),
-              numButton('.'),
-              iconButton(CupertinoIcons.equal, '='),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                numButton('00'.toString()),
+                numButton(0.toString()),
+                numButton('.'),
+                iconButton(CupertinoIcons.equal, '='),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-
   Expanded iconButton(IconData icon, String str) {
     return Expanded(
       flex: 1,
       child: Padding(
-        padding: kKeyboardBTN_padding,
+        padding: kKeyboardBTNPadding,
         child: RawMaterialButton(
           onPressed: () async {
             operatorCheck(str);
-            //:todo 여기서 = 일때의 일이 벌어진다.
-            if(str=='='){
-              History history = History(content: globals.input,
-              result: globals.resultString);
+            if (str == '=') {
+              History history =
+                  History(content: globals.input, result: globals.resultString);
               var dataBase = DB();
               dataBase.insertHistory(history);
               globals.input = globals.resultString;
               globals.resultString = '0';
             }
             buttonPressed();
-
           },
           elevation: 2.0,
           fillColor: kKeyButtonFillColor,
@@ -131,45 +140,41 @@ class Keyboard extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Padding(
-        padding: kKeyboardBTN_padding,
+        padding: kKeyboardBTNPadding,
         child: RawMaterialButton(
           onPressed: () {
-              switch (input) {
-                case 'C':
-                  clear();
-                  break;
-                case '( )':
-                  brasketTest();
-                  break;
-                case '.':
-                  dotTest();
-                  break;
-                case '+/-':
-                //todo here write some function for +/-
-                default:
-                  if(globals.input == '0'){
-                    globals.input = input;
-                  }else if(globals.input.endsWith(')')){
-                     addStringtoInput('*$input');
-                  }
-
-                  else{
-                    addStringtoInput(input);
-                  }
-              }
-              buttonPressed();
-            },
+            switch (input) {
+              case 'C':
+                clear();
+                break;
+              case '( )':
+                brasketTest();
+                break;
+              case '.':
+                dotTest();
+                break;
+              case '+/-':
+              default:
+                if (globals.input == '0') {
+                  globals.input = input;
+                } else if (globals.input.endsWith(')')) {
+                  addStringtoInput('*$input');
+                } else {
+                  addStringtoInput(input);
+                }
+            }
+            buttonPressed();
+          },
           elevation: 2.0,
           fillColor: kKeyButtonFillColor,
           shape: kKeyButtonShape,
           constraints: kKeyButtonConstraint,
           child: Center(
-
-              child: Text(
-                input,
-                style: kKeyButtonTextStyle,
-              ),
+            child: Text(
+              input,
+              style: kKeyButtonTextStyle,
             ),
+          ),
         ),
       ),
     );
@@ -183,23 +188,21 @@ class Keyboard extends StatelessWidget {
 
   void brasketTest() {
     String lastChar = globals.input[globals.input.length - 1];
-    if(globals.input.length==1 && lastChar=='0'){
+    if (globals.input.length == 1 && lastChar == '0') {
       addStringtoInput('(');
     }
     //
     // List<String> operators = ['(', '%', '/', '*', '+', '-'];
     //마지막 글자가 숫자일때
-   else if (isNumeric(lastChar)) {
+    else if (isNumeric(lastChar)) {
       if (isLeftRightBrasketEqual()) {
         addStringtoInput('*(');
-      }
-       else {
-         addStringtoInput(')');
+      } else {
+        addStringtoInput(')');
       }
     }
     //마지막 글자가 숫자가 아닐때 =>> 연산자 일때
     else {
-
       switch (lastChar) {
         case '+':
           {
@@ -233,16 +236,17 @@ class Keyboard extends StatelessWidget {
           }
         case ')':
           {
-            isLeftRightBrasketEqual()? addStringtoInput('*(') : addStringtoInput(')');
+            isLeftRightBrasketEqual()
+                ? addStringtoInput('*(')
+                : addStringtoInput(')');
             break;
           }
         case '.':
           {
-            if( isLeftRightBrasketEqual()){
+            if (isLeftRightBrasketEqual()) {
               deleteLastCharinput();
               addStringtoInput('*(');
-            }
-            else{
+            } else {
               addStringtoInput(')');
             }
             break;
@@ -253,9 +257,22 @@ class Keyboard extends StatelessWidget {
 
   void dotTest() {
     String input = globals.input;
-    String stringAfterOperator =
-    input.split('+').last.split('-').last.split('*').last.split('/').last.split('%').last
-    .split('(').last.split(')').last.toString();
+    String stringAfterOperator = input
+        .split('+')
+        .last
+        .split('-')
+        .last
+        .split('*')
+        .last
+        .split('/')
+        .last
+        .split('%')
+        .last
+        .split('(')
+        .last
+        .split(')')
+        .last
+        .toString();
     String lastChar = globals.input[globals.input.length - 1];
     switch (lastChar) {
       case '.':
@@ -284,10 +301,10 @@ class Keyboard extends StatelessWidget {
         break;
       default:
         {
-          if(stringAfterOperator.contains('.')){
+          if (stringAfterOperator.contains('.')) {
             showToast('Expression Error');
             break;
-          }else{
+          } else {
             addStringtoInput('.');
             break;
           }
@@ -295,13 +312,9 @@ class Keyboard extends StatelessWidget {
     }
   }
 
-
   //1234
   void operatorCheck(String str) {
     String lastChar = globals.input[globals.input.length - 1];
-    //:todo later us`er type = => push input & result to history and clear input to 0.0
-    //:todo  result still contains same result.
-
     if (lastChar == '.') {
       deleteLastCharinput();
     }
@@ -325,7 +338,7 @@ class Keyboard extends StatelessWidget {
   }
 
   void addStringtoInput(String str) {
-    if(globals.input =='0'){
+    if (globals.input == '0') {
       globals.input = '';
     }
     globals.input = globals.input + str;

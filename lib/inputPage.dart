@@ -13,7 +13,6 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return  Align(
       alignment: Alignment.bottomRight,
       child: Padding(
