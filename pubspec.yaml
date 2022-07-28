@@ -38,12 +38,25 @@ dependencies:
   grouped_list: ^5.1.2
   group_list_view: ^1.1.1
   flutter_smart_dialog: ^4.5.3+7
+  rename_app: ^1.1.0
+  google_fonts: ^3.0.1
+  google_mobile_ads: ^1.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  icons_launcher: ^2.0.1
 
 flutter:
   uses-material-design: true
+
+icons_launcher:
+  image_path: 'assets/launcher_icon/launcherIcon.png'
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 
