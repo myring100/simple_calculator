@@ -88,7 +88,7 @@ class _CalculatorPage extends State<CalculatorPage> {
                   }),
             )),
         Flexible(
-          flex: 6,
+          flex: 7,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
             child: Keyboard(

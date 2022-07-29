@@ -135,7 +135,30 @@ class Keyboard extends StatelessWidget {
       ),
     );
   }
-
+  //1234
+  void operatorCheck(String str) {
+    String lastChar = globals.input[globals.input.length - 1];
+    if (lastChar == '.') {
+      deleteLastCharinput();
+    }
+    lastChar = globals.input[globals.input.length - 1];
+    if (str == '=') {
+    }
+    // 마지막 글자가 숫자일때
+    // when  lastChar is number
+    else if (isNumeric(lastChar)) {
+      print('operator presssed');
+      globals.input = globals.input + str;
+    }
+    else if(lastChar == ')' && (str=='+'||str=='-'||str=='*'||str=='/'||str=='%')){
+      globals.input = globals.input + str;
+    }
+    else {
+      // 마지막 글자가 연산자일때 또는 여러가지 에러일떄
+      //when last Char is operator or something else errors.
+      showToast('Expression Error');
+    }
+  }
   Expanded numButton(String input) {
     return Expanded(
       flex: 1,
@@ -153,7 +176,6 @@ class Keyboard extends StatelessWidget {
               case '.':
                 dotTest();
                 break;
-              case '+/-':
               default:
                 if (globals.input == '0') {
                   globals.input = input;
@@ -312,30 +334,7 @@ class Keyboard extends StatelessWidget {
     }
   }
 
-  //1234
-  void operatorCheck(String str) {
-    String lastChar = globals.input[globals.input.length - 1];
-    if (lastChar == '.') {
-      deleteLastCharinput();
-    }
-    lastChar = globals.input[globals.input.length - 1];
-    if (str == '=') {
-    }
-    // 마지막 글자가 숫자일때
-    // when  lastChar is number
-    else if (isNumeric(lastChar)) {
-      print('number presssed');
-      globals.input = globals.input + str;
-    }
-    // else if(str=='-'){
-    //
-    // }
-    else {
-      // 마지막 글자가 연산자일때 또는 여러가지 에러일떄
-      //when last Char is operator or something else errors.
-      showToast('Expression Error');
-    }
-  }
+
 
   void addStringtoInput(String str) {
     if (globals.input == '0') {
