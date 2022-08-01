@@ -1,13 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.simple_calculator">
 
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="Simple Calculator">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3606480189908273~8240345699"/>
+            android:value="ca-app-pub-3606480189908273~8240345699" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
