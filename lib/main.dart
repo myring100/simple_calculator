@@ -39,6 +39,6 @@ class MyApp extends StatelessWidget {
       builder: FlutterSmartDialog.init(),
       home:
       const CalculatorPage(),
-    );
+    );//
   }
 }
