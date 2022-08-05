@@ -15,10 +15,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   runApp(const MyApp());
 }
 
