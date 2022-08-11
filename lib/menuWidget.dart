@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:simple_calculator/constants.dart';
+import 'package:vibration/vibration.dart';
 import 'history.dart';
 import 'my-globals.dart' as global;
 import 'db.dart';
@@ -29,6 +30,7 @@ class _MenuWidgetState extends State<MenuWidget> {
             iconSize: 32,
             color: kMenuBTNColor,
             onPressed: () {
+              Vibration.vibrate(duration: 50);
               _showAttach(context);
 
             },
@@ -140,6 +142,7 @@ class _MenuWidgetState extends State<MenuWidget> {
         child: ElevatedButton(
           style: kClearBtn,
           onPressed: () {
+            Vibration.vibrate(duration: 50);
             DB database = DB();
             database.deleteAllHistory();
             SmartDialog.dismiss();

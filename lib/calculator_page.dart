@@ -7,7 +7,7 @@ import 'my-globals.dart' as global;
 import 'calculator.dart';
 import 'ad_helper.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
+import 'package:vibration/vibration.dart';
 
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({Key? key}) : super(key: key);
@@ -22,6 +22,7 @@ class _CalculatorPage extends State<CalculatorPage> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: Load a banner ad
     print('initState');
     BannerAd(
@@ -80,6 +81,7 @@ class _CalculatorPage extends State<CalculatorPage> {
             child: MenuWidget(
               buttonPressed: () =>
                   setState(() {
+                    Vibration.vibrate(duration: 50);
                     try {
                       complete();
                     } catch (error) {
@@ -94,6 +96,7 @@ class _CalculatorPage extends State<CalculatorPage> {
             child: Keyboard(
               buttonPressed: () =>
                   setState(() {
+                    Vibration.vibrate(duration: 50);
                     try {
                       complete();
                       print('global result = ${global.resultString}');
